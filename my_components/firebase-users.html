@@ -1,0 +1,31 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="/bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="/bower_components/polymerfire/firebase-document.html">
+
+<dom-module id="firebase-users">
+    <template>
+        <firebase-app 
+            api-key="AIzaSyAElTsEYvLmejMEfsMgssQ6KWuuwuUGTuQ"
+            auth-domain="polymertest-e4d9a.firebaseapp.com"
+            database-url="https://polymertest-e4d9a.firebaseio.com">
+        </firebase-app>
+        <firebase-document
+            path="/users"
+            data="{{users}}">
+        </firebase-document>
+    </template>
+    <script>
+        Polymer({
+            is: "firebase-users",
+            properties: {
+                users: {
+                    type: Array,
+                    value: function() { return []; },
+                    notify: true
+                }
+            }
+        });
+    </script>
+</dom-module>
