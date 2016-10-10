@@ -1,19 +1,57 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-
-<link rel="import" href="/my_components/firebase-users.html">
-
+<link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+
+
+<link rel="import" href="/bower_components/app-route/app-route.html">
+<link rel="import" href="/bower_components/app-route/app-location.html">
+
+
+<link rel="import" href="/my_components/user-list.html">
+<link rel="import" href="/my_components/random-users.html">
 
 <dom-module id="my-app">
     <template>
-        <firebase-users users="{{users}}"></firebase-users>
+        <style is="custom-style">
+            .paper-item-link {
+                color: inherit;
+                text-decoration: none;
+            }
+        </style>
+        <app-location route="{{ route }}" use-hash-as-path></app-location>
+        <app-route route="{{ route }}" pattern="/users/:view" data="{{routeData}}">
+        </app-route>
 
-        <paper-listbox>     
-            <template is="dom-repeat" items="[[users]]" as="user">
-                <paper-item>[[user.firstName]] [[user.lastName]]</paper-item>
-            </template>
-        </paper-listbox>
+        <app-drawer-layout>
+            <app-drawer swipe-open>
+                <paper-listbox>
+                    <a class="paper-item-link"
+                        href="#/users/firebase" 
+                        tabindex="-1">
+                        <paper-item>Firebase Users</paper-item>
+                    </a>
+                    <a  class="paper-item-link" 
+                        href="#/users/random" 
+                        tabindex="-1">
+                        <paper-item>Random User API</paper-item>
+                    </a>
+                </paper-listbox>
+            </app-drawer>
+            <div>
+                <div>
+                    <paper-material elevation="1">
+                        <iron-pages selected="[[ routeData.view ]]" attr-for-selected="name">
+                            <user-list name="firebase"></user-list>
+                            <random-users name="random"></random-users>
+                        </iron-pages>
+                    </paper-material>
+                </div>
+            </div>
+        </app-drawer-layout>
     </template>
     <script>
         Polymer({

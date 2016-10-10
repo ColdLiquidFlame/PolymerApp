@@ -1,0 +1,25 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/my_components/firebase-users.html">
+
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+
+<dom-module id="user-list">
+    <template>
+        <firebase-users users="{{users}}"></firebase-users>
+
+        <h1>Firebase Users</h1>
+
+        <paper-listbox>     
+            <template is="dom-repeat" items="[[users]]" as="user">
+                <paper-item>[[user.firstName]] [[user.lastName]]</paper-item>
+            </template>
+        </paper-listbox>
+    </template>
+    <script>
+        Polymer({
+            is: "user-list"
+        });
+    </script>
+</dom-module>
