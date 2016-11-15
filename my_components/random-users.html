@@ -1,12 +1,73 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+
 
 <dom-module id="random-users">
     <template>
         <h1>Random Users</h1>
+
+        <iron-ajax
+            auto
+            last-response="{{ response }}"
+            handle-as="json"
+            params="[[ params ]]"
+            url="https://randomuser.me/api/"></iron-ajax>
+
+        <paper-slider
+            min="1"
+            max="100"
+            pin
+            expand
+            label="Number of results"
+            value="{{ numberOfResults }}"></paper-slider>
+
+        <paper-dropdown-menu
+            label="Nationality"
+            value="{{ nationality }}"
+            selected-item="US">
+            <paper-listbox
+                class="dropdown-content">
+                <template is="dom-repeat" items="[[nationalities]]">
+                    <paper-item>[[ item ]]</paper-item>
+                </template>
+            </paper-listbox>
+        </paper-dropdown-menu>
+
+        <template is="dom-repeat" items="[[ response.results ]]">
+            <div>
+                <span>[[ item.name.first ]] [[ item.name.last ]]</span>
+            </div>
+        </template>
+
     </template>
     <script>
         Polymer({
-            is: "random-users"
+            is: "random-users",
+            properties: {
+                numberOfResults: {
+                    type: Number,
+                    value: 10
+                },
+                nationality: String,
+                params: {
+                    type: String,
+                    computed: 'getParameters(numberOfResults, nationality)'
+                },
+                nationalities: {
+                    type: Array,
+                    value: function() { return ['AU', 'BR', 'CA', 'CH', 'DE', 'DK', 'ES', 'FI', 'FR', 'GB', 'IE', 'IR', 'NL', 'NZ', 'TR', 'US']; }
+                }
+            },
+            getParameters: function(numberOfResults, nationality) {
+                return {
+                    nat: nationality,
+                    results: numberOfResults
+                };
+            }
         });
     </script>
 </dom-module>

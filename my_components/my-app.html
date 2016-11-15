@@ -1,15 +1,22 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+
 <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="/bower_components/paper-item/paper-item.html">
-<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="/bower_components/paper-material/paper-material.html">
-
 
 <link rel="import" href="/bower_components/app-route/app-route.html">
 <link rel="import" href="/bower_components/app-route/app-location.html">
 
+<link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
+
+<link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 
 <link rel="import" href="/my_components/user-list.html">
 <link rel="import" href="/my_components/random-users.html">
@@ -22,10 +29,23 @@
                 text-decoration: none;
             }
         </style>
-        <app-location route="{{ route }}" use-hash-as-path></app-location>
-        <app-route route="{{ route }}" pattern="/users/:view" data="{{routeData}}">
+        <app-location 
+            route="{{ route }}" 
+            use-hash-as-path>
+        </app-location>
+        <app-route 
+            route="{{ route }}" 
+            pattern="/users/:view" 
+            data="{{routeData}}">
         </app-route>
 
+        <app-header-layout>
+            <app-header reveals>
+                <app-toolbar>
+                    <div main-title>Polymer Demo</div>
+                </app-toolbar>
+            </app-header>
+        </app-header-layout>
         <app-drawer-layout>
             <app-drawer swipe-open>
                 <paper-listbox>
@@ -43,7 +63,7 @@
             </app-drawer>
             <div>
                 <div>
-                    <paper-material elevation="1">
+                    <paper-material>
                         <iron-pages selected="[[ routeData.view ]]" attr-for-selected="name">
                             <user-list name="firebase"></user-list>
                             <random-users name="random"></random-users>
