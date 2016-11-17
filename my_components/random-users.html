@@ -4,45 +4,51 @@
 <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
 
 
 <dom-module id="random-users">
     <template>
-        <h1>Random Users</h1>
+        <style>
+            
+        </style>
 
-        <iron-ajax
-            auto
-            last-response="{{ response }}"
-            handle-as="json"
-            params="[[ params ]]"
-            url="https://randomuser.me/api/"></iron-ajax>
+        <paper-material elevation="2">
+            <h1>Random Users</h1>
 
-        <paper-slider
-            min="1"
-            max="100"
-            pin
-            expand
-            label="Number of results"
-            value="{{ numberOfResults }}"></paper-slider>
+            <iron-ajax
+                auto
+                last-response="{{ response }}"
+                handle-as="json"
+                params="[[ params ]]"
+                url="https://randomuser.me/api/"></iron-ajax>
 
-        <paper-dropdown-menu
-            label="Nationality"
-            value="{{ nationality }}"
-            selected-item="US">
-            <paper-listbox
-                class="dropdown-content">
-                <template is="dom-repeat" items="[[nationalities]]">
-                    <paper-item>[[ item ]]</paper-item>
-                </template>
-            </paper-listbox>
-        </paper-dropdown-menu>
+            <paper-slider
+                min="1"
+                max="100"
+                pin
+                expand
+                label="Number of results"
+                value="{{ numberOfResults }}"></paper-slider>
 
-        <template is="dom-repeat" items="[[ response.results ]]">
-            <div>
-                <span>[[ item.name.first ]] [[ item.name.last ]]</span>
-            </div>
-        </template>
+            <paper-dropdown-menu
+                label="Nationality"
+                value="{{ nationality }}"
+                selected-item="US">
+                <paper-listbox
+                    class="dropdown-content">
+                    <template is="dom-repeat" items="[[nationalities]]">
+                        <paper-item>[[ item ]]</paper-item>
+                    </template>
+                </paper-listbox>
+            </paper-dropdown-menu>
 
+            <template is="dom-repeat" items="[[ response.results ]]">
+                <div>
+                    <span>[[ item.name.first ]] [[ item.name.last ]]</span>
+                </div>
+            </template>
+        </paper-material>
     </template>
     <script>
         Polymer({
@@ -52,7 +58,11 @@
                     type: Number,
                     value: 10
                 },
-                nationality: String,
+                nationality: {
+                    type: String,
+                    value: "US",
+                    notify: true
+                },
                 params: {
                     type: String,
                     computed: 'getParameters(numberOfResults, nationality)'

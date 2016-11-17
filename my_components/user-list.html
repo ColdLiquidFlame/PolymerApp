@@ -4,18 +4,21 @@
 
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
 
 <dom-module id="user-list">
     <template>
+        
         <firebase-users users="{{users}}"></firebase-users>
+        <paper-material elevation="2">
+            <h1>Firebase Users</h1>
 
-        <h1>Firebase Users</h1>
-
-        <paper-listbox>     
-            <template is="dom-repeat" items="[[users]]" as="user">
-                <paper-item>[[user.firstName]] [[user.lastName]]</paper-item>
-            </template>
-        </paper-listbox>
+            <paper-listbox>     
+                <template is="dom-repeat" items="[[users]]" as="user">
+                    <paper-item>[[user.firstName]] [[user.lastName]]</paper-item>
+                </template>
+            </paper-listbox>
+        </paper-material>
     </template>
     <script>
         Polymer({
