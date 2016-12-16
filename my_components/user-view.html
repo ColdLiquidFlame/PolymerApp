@@ -1,0 +1,45 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/bower_components/app-route/app-route.html">
+<link rel="import" href="/bower_components/app-route/app-location.html">
+
+<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/paper-styles/color.html">
+
+<link rel="import" href="/my_components/user-list.html">
+<link rel="import" href="/my_components/random-users.html">
+
+<dom-module id="user-view">
+    <template>
+        <app-location 
+            route="{{ route }}" 
+            use-hash-as-path>
+        </app-location>
+
+        <app-route 
+            route="{{ route }}" 
+            pattern="/users/:view" 
+            data="{{routeData}}"
+            >
+        </app-route>
+        
+        <h1>Users</h1>
+        
+        <paper-tabs attr-for-selected="name" selected="{{ routeData.view }}">
+            <paper-tab name="firebase">Firebase</paper-tab>
+            <paper-tab name="random">Random</paper-tab>
+        </paper-tabs>
+        
+        <iron-pages selected="{{ routeData.view }}" attr-for-selected="name">
+            <user-list name="firebase"></user-list>
+            <random-users name="random"></random-users>
+        </iron-pages>
+    </template>
+    
+    <script>
+        /* global Polymer*/
+        Polymer({
+            is: "user-view"
+        });
+    </script>
+</dom-module>

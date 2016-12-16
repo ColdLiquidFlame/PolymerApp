@@ -19,8 +19,10 @@
 
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 
-<link rel="import" href="/my_components/user-list.html">
-<link rel="import" href="/my_components/random-users.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+
+<link rel="import" href="/my_components/user-view.html">
+<link rel="import" href="/my_components/color-picker.html">
 
 <dom-module id="my-app">
     <template>
@@ -32,16 +34,24 @@
             }
 
             app-header {
-                background-color:mediumblue;
+                background-color: blue;
                 color: #fff;
             }
 
             app-header paper-icon-button {
                 --paper-icon-button-ink-color: white;
             }
+            
+            app-drawer-layout {
+                background-color: apply(--paper-grey-100);
+            }
 
             paper-material {
                 padding: 10px;
+            }
+            
+            iron-pages {
+                padding: 1em;
             }
         </style>
 
@@ -52,22 +62,24 @@
 
         <app-route 
             route="{{ route }}" 
-            pattern="/users/:view" 
-            data="{{routeData}}">
+            pattern="/:view" 
+            data="{{routeData}}"
+            >
         </app-route>
+        
         <app-drawer-layout>
 
             <app-drawer swipe-open>
                 <paper-listbox>
                     <a class="paper-item-link"
-                        href="#/users/firebase" 
+                        href="#/users" 
                         tabindex="-1">
-                        <paper-item>Firebase Users</paper-item>
+                        <paper-item>Users</paper-item>
                     </a>
                     <a  class="paper-item-link" 
-                        href="#/users/random" 
+                        href="#/color-picker" 
                         tabindex="-1">
-                        <paper-item>Random User API</paper-item>
+                        <paper-item>Color Picker</paper-item>
                     </a>
                 </paper-listbox>
             </app-drawer>
@@ -82,8 +94,8 @@
                 </app-header>
 
                 <iron-pages selected="[[ routeData.view ]]" attr-for-selected="name">
-                    <user-list name="firebase"></user-list>
-                    <random-users name="random"></random-users>
+                    <user-view name="users"></user-view>
+                    <color-picker name="color-picker"></color-picker>
                 </iron-pages>
            
            </app-header-layout>
