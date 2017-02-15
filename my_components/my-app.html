@@ -19,33 +19,33 @@
 
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 
-<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-styles/color.html">
 
+<link rel="import" href="/my_components/app-theme.html">
 <link rel="import" href="/my_components/user-view.html">
 <link rel="import" href="/my_components/color-picker.html">
 
 <dom-module id="my-app">
     <template>
         <style is="custom-style">
+            :host {
+                
+            }
             
             .paper-item-link {
                 color: inherit;
                 text-decoration: none;
             }
-
+            
             app-header {
-                background-color: blue;
-                color: #fff;
-            }
-
-            app-header paper-icon-button {
-                --paper-icon-button-ink-color: white;
+                background-color: var(--paper-blue-500);
+                color: white;
             }
             
-            app-drawer-layout {
-                background-color: apply(--paper-grey-100);
+            app-drawer {
+                
             }
-
+            
             paper-material {
                 padding: 10px;
             }
@@ -63,28 +63,19 @@
         <app-route 
             route="{{ route }}" 
             pattern="/:view" 
-            data="{{routeData}}"
-            >
+            data="{{routeData}}">
         </app-route>
         
         <app-drawer-layout>
 
             <app-drawer swipe-open>
-                <paper-listbox>
-                    <a class="paper-item-link"
-                        href="#/users" 
-                        tabindex="-1">
-                        <paper-item>Users</paper-item>
-                    </a>
-                    <a  class="paper-item-link" 
-                        href="#/color-picker" 
-                        tabindex="-1">
-                        <paper-item>Color Picker</paper-item>
-                    </a>
+                <paper-listbox attr-for-selected="route" selected="{{ routeData.view }}">
+                    <paper-item route="users">Users</paper-item>
+                    <paper-item route="color-picker">Color Picker</paper-item>
                 </paper-listbox>
             </app-drawer>
            
-           <app-header-layout>
+            <app-header-layout>
                
                 <app-header reveals effects="waterfall">
                     <app-toolbar>
@@ -98,7 +89,7 @@
                     <color-picker name="color-picker"></color-picker>
                 </iron-pages>
            
-           </app-header-layout>
+            </app-header-layout>
 
         </app-drawer-layout>
     </template>

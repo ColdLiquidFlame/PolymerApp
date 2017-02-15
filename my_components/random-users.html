@@ -4,7 +4,7 @@
 <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
-<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
 
 
 <dom-module id="random-users">
@@ -13,9 +13,7 @@
             
         </style>
 
-        <paper-material elevation="2">
-            <h1>Random Users</h1>
-
+        <paper-card heading="Random Users">
             <iron-ajax
                 auto
                 last-response="{{ response }}"
@@ -48,7 +46,7 @@
                     <span>[[ item.name.first ]] [[ item.name.last ]]</span>
                 </div>
             </template>
-        </paper-material>
+        </paper-card>
     </template>
     <script>
         Polymer({

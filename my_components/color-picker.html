@@ -1,14 +1,44 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-slider/paper-slider.html">
 
 <dom-module id="color-picker">
     <template>
-        <h1>Color Picker Placeholder</h1>
+        <style is="custom-style">
+            :host {
+                --div-background: black
+                --paper-slider-input: {
+                    width: 5em;
+                }
+            }
+            
+            div#color {
+                background-color: var(--div-background);
+            }
+        </style>
+        <paper-card heading="Color Picker">
+            <div>R</div>
+            <paper-slider editable max="255" value="{{ red }}" immediate-value="{{ red }}"></paper-slider>
+            <div>G</div>
+            <paper-slider editable max="255" value="{{ green }}" immediate-value="{{ green }}"></paper-slider>
+            <div>B</div>
+            <paper-slider editable max="255" value="{{ blue }}" immediate-value="{{ blue }}"></paper-slider>
+            <div id="color" style="width: 200px; height: 200px"></div>
+        </paper-card>
     </template>
     <script>
         /* global Polymer */
         Polymer({
-            is: "color-picker"
+            is: "color-picker",
+            listeners: {
+                'immediate-value-change': 'changeColor',
+                'change': 'changeColor'
+            },
+            changeColor: function() {
+                var newColor = 'rgb(' + this.red + ',' + this.green + ',' + this.blue + ')';
+                this.customStyle['--div-background'] = newColor;
+                this.updateStyles();
+            }
         });
     </script>
 </dom-module>
